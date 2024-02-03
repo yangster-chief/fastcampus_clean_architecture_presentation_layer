@@ -22,8 +22,8 @@ class ImageResponse {
     required this.breeds,
     required this.id,
     required this.url,
-    required this.width,
-    required this.height,
+    this.width = 0,
+    this.height = 0,
   });
 
   factory ImageResponse.fromJson(Map<String, dynamic> json) =>
