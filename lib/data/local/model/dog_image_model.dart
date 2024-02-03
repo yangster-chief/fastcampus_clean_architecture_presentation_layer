@@ -1,4 +1,5 @@
 import 'package:clean_architecture_layer_exam/data/local/model/breed_model.dart';
+import 'package:clean_architecture_layer_exam/domain/entity/dog_image.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 ///
@@ -30,4 +31,28 @@ class DogImageModel {
     this.height = 0,
     this.breeds = const [],
   });
+}
+
+extension DogImageModelExtension on DogImageModel {
+  DogImage toEntity() => DogImage(
+        id: id,
+        url: url,
+        width: width,
+        height: height,
+        breeds: breeds.map((e) => e.toEntity()).toList(),
+      );
+}
+
+extension DogImagesModelExtension on List<DogImageModel> {
+  List<DogImage> toEntities() => map((e) => e.toEntity()).toList();
+}
+
+extension DogImageExtension on DogImage {
+  DogImageModel toModel() => DogImageModel(
+        id: id,
+        url: url,
+        width: width,
+        height: height,
+        breeds: breeds.map((e) => e.toModel()).toList(),
+      );
 }

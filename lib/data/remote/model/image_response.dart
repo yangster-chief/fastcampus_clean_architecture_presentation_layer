@@ -1,3 +1,4 @@
+import 'package:clean_architecture_layer_exam/domain/entity/dog_image.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 ///
@@ -75,4 +76,40 @@ class SystemOfMeasurementResponse {
 
   factory SystemOfMeasurementResponse.fromJson(Map<String, dynamic> json) =>
       _$SystemOfMeasurementResponseFromJson(json);
+}
+
+extension ImageResponseExtension on ImageResponse {
+  DogImage toEntity() => DogImage(
+        id: id,
+        url: url,
+        width: width,
+        height: height,
+        breeds: breeds.map((e) => e.toEntity()).toList(),
+      );
+}
+
+extension ImageResponsesExtension on List<ImageResponse> {
+  List<DogImage> toEntities() => map((e) => e.toEntity()).toList();
+}
+
+extension BreedResponseExtension on BreedResponse {
+  Breed toEntity() => Breed(
+        weight: weight.toEntity(),
+        height: height.toEntity(),
+        id: id,
+        name: name,
+        bredFor: bredFor,
+        breedGroup: breedGroup,
+        lifeSpan: lifeSpan,
+        temperament: temperament,
+        origin: origin,
+        referenceImageId: referenceImageId,
+      );
+}
+
+extension SystemOfMeasurementResponseExtension on SystemOfMeasurementResponse {
+  SystemOfMeasurement toEntity() => SystemOfMeasurement(
+        imperial: imperial,
+        metric: metric,
+      );
 }

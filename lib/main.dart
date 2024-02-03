@@ -1,5 +1,5 @@
 import 'package:clean_architecture_layer_exam/injector.dart';
-import 'package:clean_architecture_layer_exam/screen/dog_image_screen.dart';
+import 'package:clean_architecture_layer_exam/presentation/dog_image_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:loggy/loggy.dart';
 

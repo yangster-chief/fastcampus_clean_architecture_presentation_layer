@@ -1,3 +1,4 @@
+import 'package:clean_architecture_layer_exam/domain/entity/dog_image.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 ///
@@ -44,4 +45,46 @@ class BreedModel {
     this.origin = '',
     this.referenceImageId = '',
   });
+}
+
+extension BreedModelExtension on BreedModel {
+  Breed toEntity() => Breed(
+        weight: SystemOfMeasurement(
+          imperial: weight['imperial'] ?? '',
+          metric: weight['metric'] ?? '',
+        ),
+        height: SystemOfMeasurement(
+          imperial: height['imperial'] ?? '',
+          metric: height['metric'] ?? '',
+        ),
+        id: id,
+        name: name,
+        bredFor: bredFor,
+        breedGroup: breedGroup,
+        lifeSpan: lifeSpan,
+        temperament: temperament,
+        origin: origin,
+        referenceImageId: referenceImageId,
+      );
+}
+
+extension BreedExtension on Breed {
+  BreedModel toModel() => BreedModel(
+        weight: {
+          'imperial': weight.imperial,
+          'metric': weight.metric,
+        },
+        height: {
+          'imperial': height.imperial,
+          'metric': height.metric,
+        },
+        id: id,
+        name: name,
+        bredFor: bredFor ?? '',
+        breedGroup: breedGroup ?? '',
+        lifeSpan: lifeSpan ?? '',
+        temperament: temperament ?? '',
+        origin: origin ?? '',
+        referenceImageId: referenceImageId ?? '',
+      );
 }
