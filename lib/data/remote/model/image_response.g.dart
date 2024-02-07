@@ -13,8 +13,8 @@ ImageResponse _$ImageResponseFromJson(Map<String, dynamic> json) =>
           .toList(),
       id: json['id'] as String,
       url: json['url'] as String,
-      width: json['width'] as int,
-      height: json['height'] as int,
+      width: json['width'] as int? ?? 0,
+      height: json['height'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$ImageResponseToJson(ImageResponse instance) =>

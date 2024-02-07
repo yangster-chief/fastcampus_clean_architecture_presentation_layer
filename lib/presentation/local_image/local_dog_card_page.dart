@@ -1,4 +1,4 @@
-import 'package:clean_architecture_layer_exam/presentation/bloc/dog_images_bloc.dart';
+import 'package:clean_architecture_layer_exam/presentation/local_image/bloc/local_dog_images_bloc.dart';
 import 'package:clean_architecture_layer_exam/presentation/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
@@ -25,7 +25,7 @@ class _LocalDogCardPageState extends State<LocalDogCardPage> {
   @override
   void initState() {
     super.initState();
-    context.read<DogImagesBloc>().add(const GetLocalDogImagesEvent());
+    context.read<LocalDogImagesBloc>().add(const GetLocalDogImagesEvent());
   }
 
   @override
@@ -36,23 +36,26 @@ class _LocalDogCardPageState extends State<LocalDogCardPage> {
 
   @override
   Widget build(BuildContext context) =>
-      BlocBuilder<DogImagesBloc, DogImagesState>(
+      BlocBuilder<LocalDogImagesBloc, LocalDogImagesState>(
         builder: (context, state) {
           if (state is LocalDogImagesLoading) {
             return const LoadingDogCardFrame();
           } else if (state is LocalDogImagesLoaded) {
-            final cards = state.localImages.map(DogImageCard.new).toList();
+            final cards = state.images.map(DogImageCard.new).toList();
             return LocalDogCardFrame(
-              items: state.localImages,
+              items: state.images,
               controller: controller,
               onSwipe: _onSwipe,
               cards: cards,
               onClearAll: () {
-                context.read<DogImagesBloc>().add(const ClearDogImagesEvent());
+                context
+                    .read<LocalDogImagesBloc>()
+                    .add(const ClearDogImagesEvent());
               },
               onDelete: () {
-                context.read<DogImagesBloc>().add(
-                    DeleteDogImageEvent(state.localImages[_currentIndex].id));
+                context
+                    .read<LocalDogImagesBloc>()
+                    .add(DeleteDogImageEvent(state.images[_currentIndex].id));
                 showToastMessage('deleted');
               },
             );
@@ -61,7 +64,7 @@ class _LocalDogCardPageState extends State<LocalDogCardPage> {
               text: 'Error : ${state.error}',
               onRefresh: () {
                 context
-                    .read<DogImagesBloc>()
+                    .read<LocalDogImagesBloc>()
                     .add(const GetLocalDogImagesEvent());
               },
             );
@@ -70,7 +73,7 @@ class _LocalDogCardPageState extends State<LocalDogCardPage> {
               text: 'Empty',
               onRefresh: () {
                 context
-                    .read<DogImagesBloc>()
+                    .read<LocalDogImagesBloc>()
                     .add(const GetLocalDogImagesEvent());
               },
             );
@@ -79,7 +82,7 @@ class _LocalDogCardPageState extends State<LocalDogCardPage> {
               text: 'Need to Refresh',
               onRefresh: () {
                 context
-                    .read<DogImagesBloc>()
+                    .read<LocalDogImagesBloc>()
                     .add(const GetLocalDogImagesEvent());
               },
             );

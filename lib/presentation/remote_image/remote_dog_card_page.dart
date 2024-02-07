@@ -1,4 +1,5 @@
-import 'package:clean_architecture_layer_exam/presentation/bloc/dog_images_bloc.dart';
+import 'package:clean_architecture_layer_exam/presentation/local_image/bloc/local_dog_images_bloc.dart';
+import 'package:clean_architecture_layer_exam/presentation/remote_image/bloc/remote_dog_images_bloc.dart';
 import 'package:clean_architecture_layer_exam/presentation/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
@@ -26,7 +27,7 @@ class _RemoteDogCardPageState extends State<RemoteDogCardPage> {
   @override
   void initState() {
     super.initState();
-    context.read<DogImagesBloc>().add(const GetRemoteDogImagesEvent());
+    context.read<RemoteDogImagesBloc>().add(const GetRemoteDogImagesEvent());
   }
 
   @override
@@ -37,31 +38,29 @@ class _RemoteDogCardPageState extends State<RemoteDogCardPage> {
 
   @override
   Widget build(BuildContext context) =>
-      BlocBuilder<DogImagesBloc, DogImagesState>(
+      BlocBuilder<RemoteDogImagesBloc, RemoteDogImagesState>(
         builder: (context, state) {
           if (state is RemoteDogImagesLoading) {
             return const LoadingDogCardFrame();
           } else if (state is RemoteDogImagesLoaded) {
-            final cards = state.remoteImages.map(DogImageCard.new).toList();
+            final cards = state.images.map(DogImageCard.new).toList();
 
             return RemoteDogCardFrame(
-              items: state.remoteImages,
+              items: state.images,
               controller: controller,
               onSwipe: _onSwipe,
               cards: cards,
               onRefresh: () {
                 context
-                    .read<DogImagesBloc>()
+                    .read<RemoteDogImagesBloc>()
                     .add(const GetRemoteDogImagesEvent());
               },
               onSave: () {
-                context.read<DogImagesBloc>().add(
-                      SaveDogImageEvent(
-                        state.remoteImages[_currentIndex],
-                      ),
-                    );
+                context
+                    .read<LocalDogImagesBloc>()
+                    .add(SaveDogImageEvent(state.images[_currentIndex]));
                 showToastMessage(
-                    'item ${state.remoteImages[_currentIndex].id} saved');
+                    'item ${state.images[_currentIndex].id} saved');
                 controller.swipe(CardSwiperDirection.right);
               },
             );
@@ -70,7 +69,7 @@ class _RemoteDogCardPageState extends State<RemoteDogCardPage> {
                 text: 'Error',
                 onRefresh: () {
                   context
-                      .read<DogImagesBloc>()
+                      .read<RemoteDogImagesBloc>()
                       .add(const GetRemoteDogImagesEvent());
                 });
           }

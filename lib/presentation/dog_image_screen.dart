@@ -1,7 +1,8 @@
 import 'package:clean_architecture_layer_exam/injector.dart';
-import 'package:clean_architecture_layer_exam/presentation/bloc/dog_images_bloc.dart';
-import 'package:clean_architecture_layer_exam/presentation/page/local_dog_card_page.dart';
-import 'package:clean_architecture_layer_exam/presentation/page/remote_dog_card_page.dart';
+import 'package:clean_architecture_layer_exam/presentation/local_image/bloc/local_dog_images_bloc.dart';
+import 'package:clean_architecture_layer_exam/presentation/local_image/local_dog_card_page.dart';
+import 'package:clean_architecture_layer_exam/presentation/remote_image/bloc/remote_dog_images_bloc.dart';
+import 'package:clean_architecture_layer_exam/presentation/remote_image/remote_dog_card_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +17,11 @@ class DogImageScreen extends StatelessWidget {
   const DogImageScreen({super.key});
 
   @override
-  Widget build(BuildContext context) => BlocProvider(
-        create: (_) => locator<DogImagesBloc>(),
+  Widget build(BuildContext context) => MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => locator<RemoteDogImagesBloc>()),
+          BlocProvider(create: (context) => locator<LocalDogImagesBloc>()),
+        ],
         child: const _DogImageScreen(),
       );
 }

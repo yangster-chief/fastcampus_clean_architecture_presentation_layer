@@ -9,17 +9,18 @@ import 'package:injectable/injectable.dart';
 
 ///
 /// clean_architecture_layer_exam
-/// File Name: dog_images_bloc
+/// File Name: local_dog_images_bloc
 /// Created by sujangmac
 ///
 /// Description:
 ///
-part 'dog_images_event.dart';
-part 'dog_images_state.dart';
+part 'local_dog_images_event.dart';
+part 'local_dog_images_state.dart';
 
 @injectable
-class DogImagesBloc extends Bloc<DogImagesEvent, DogImagesState> {
-  DogImagesBloc(
+class LocalDogImagesBloc
+    extends Bloc<LocalDogImagesEvent, LocalDogImagesState> {
+  LocalDogImagesBloc(
     GetDogImagesUseCase getDogImagesUseCase,
     SaveDogImageUseCase saveDogImageUseCase,
     DeleteDogImageUseCase deleteDogImageUseCase,
@@ -28,9 +29,8 @@ class DogImagesBloc extends Bloc<DogImagesEvent, DogImagesState> {
         _saveDogImageUseCase = saveDogImageUseCase,
         _deleteDogImageUseCase = deleteDogImageUseCase,
         _clearDogImagesUseCase = clearDogImagesUseCase,
-        super(const RemoteDogImagesLoading()) {
-    on<GetRemoteDogImagesEvent>(_onGetRemoteDogImages);
-    on<GetLocalDogImagesEvent>(_onGetLocalDogImages);
+        super(const LocalDogImagesLoading()) {
+    on<GetLocalDogImagesEvent>(_onGetDogImages);
     on<SaveDogImageEvent>(_onSaveDogImage);
     on<DeleteDogImageEvent>(_onDeleteDogImage);
     on<ClearDogImagesEvent>(_onClearDogImages);
@@ -41,37 +41,21 @@ class DogImagesBloc extends Bloc<DogImagesEvent, DogImagesState> {
   final DeleteDogImageUseCase _deleteDogImageUseCase;
   final ClearDogImagesUseCase _clearDogImagesUseCase;
 
-  void _onGetRemoteDogImages(
-    GetRemoteDogImagesEvent event,
-    Emitter<DogImagesState> emit,
-  ) async {
-    emit(const RemoteDogImagesLoading());
-    final data = await _getDogImagesUseCase.call(
-      true,
-      onError: (error) async => emit(RemoteDogImagesError(error.toString())),
-    );
-    emit(RemoteDogImagesLoaded(data));
-  }
-
-  void _onGetLocalDogImages(
+  void _onGetDogImages(
     GetLocalDogImagesEvent event,
-    Emitter<DogImagesState> emit,
+    Emitter<LocalDogImagesState> emit,
   ) async {
     emit(const LocalDogImagesLoading());
     final data = await _getDogImagesUseCase.call(
       false,
       onError: (error) async => emit(LocalDogImagesError(error.toString())),
     );
-    if (data.isEmpty) {
-      emit(const LocalDogImagesIsEmpty());
-    } else {
-      emit(LocalDogImagesLoaded(data));
-    }
+    emit(LocalDogImagesLoaded(data));
   }
 
   void _onSaveDogImage(
     SaveDogImageEvent event,
-    Emitter<DogImagesState> emit,
+    Emitter<LocalDogImagesState> emit,
   ) async {
     await _saveDogImageUseCase.call(
       event.dogImage,
@@ -81,7 +65,7 @@ class DogImagesBloc extends Bloc<DogImagesEvent, DogImagesState> {
 
   void _onDeleteDogImage(
     DeleteDogImageEvent event,
-    Emitter<DogImagesState> emit,
+    Emitter<LocalDogImagesState> emit,
   ) async {
     await _deleteDogImageUseCase.call(
       event.id,
@@ -92,7 +76,7 @@ class DogImagesBloc extends Bloc<DogImagesEvent, DogImagesState> {
 
   void _onClearDogImages(
     ClearDogImagesEvent event,
-    Emitter<DogImagesState> emit,
+    Emitter<LocalDogImagesState> emit,
   ) async {
     await _clearDogImagesUseCase.call(
       null,
