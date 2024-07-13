@@ -2,7 +2,7 @@ import 'package:clean_architecture_layer_exam/domain/entity/dog_image.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: image_response
 /// Created by sujangmac
 ///
@@ -59,7 +59,6 @@ class BreedResponse {
     this.origin,
     this.referenceImageId,
   });
-
   factory BreedResponse.fromJson(Map<String, dynamic> json) =>
       _$BreedResponseFromJson(json);
 }
@@ -78,7 +77,7 @@ class SystemOfMeasurementResponse {
       _$SystemOfMeasurementResponseFromJson(json);
 }
 
-extension ImageResponseExtension on ImageResponse {
+extension ImageResponseX on ImageResponse {
   DogImage toEntity() => DogImage(
         id: id,
         url: url,
@@ -88,11 +87,11 @@ extension ImageResponseExtension on ImageResponse {
       );
 }
 
-extension ImageResponsesExtension on List<ImageResponse> {
+extension ImageResponsesX on List<ImageResponse> {
   List<DogImage> toEntities() => map((e) => e.toEntity()).toList();
 }
 
-extension BreedResponseExtension on BreedResponse {
+extension BreedResponseX on BreedResponse {
   Breed toEntity() => Breed(
         weight: weight.toEntity(),
         height: height.toEntity(),
@@ -107,9 +106,35 @@ extension BreedResponseExtension on BreedResponse {
       );
 }
 
-extension SystemOfMeasurementResponseExtension on SystemOfMeasurementResponse {
+extension SystemOfMeasurementResponseX on SystemOfMeasurementResponse {
   SystemOfMeasurement toEntity() => SystemOfMeasurement(
         imperial: imperial,
         metric: metric,
       );
+}
+
+abstract class MessageService {
+  void sendMessage(String message, String receiver);
+}
+
+class EmailService implements MessageService {
+  @override
+  void sendMessage(String message, String receiver) {
+    print("Email sent to $receiver with message: $message");
+  }
+}
+
+class Application {
+  final EmailService _emailService;
+
+  Application() : _emailService = EmailService();
+
+  void processMessages(String message, String receiver) {
+    _emailService.sendMessage(message, receiver);
+  }
+}
+
+void main() {
+  var app = Application();
+  app.processMessages("Hello, Dart!", "user@example.com");
 }

@@ -3,8 +3,8 @@ import 'package:clean_architecture_layer_exam/presentation/local_image/bloc/loca
 import 'package:clean_architecture_layer_exam/presentation/local_image/local_dog_card_page.dart';
 import 'package:clean_architecture_layer_exam/presentation/remote_image/bloc/remote_dog_images_bloc.dart';
 import 'package:clean_architecture_layer_exam/presentation/remote_image/remote_dog_card_page.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 ///
 /// clean_architecture_layer_exam
@@ -19,8 +19,10 @@ class DogImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => locator<RemoteDogImagesBloc>()),
-          BlocProvider(create: (context) => locator<LocalDogImagesBloc>()),
+          BlocProvider<RemoteDogImagesBloc>(
+              create: (context) => locator<RemoteDogImagesBloc>()),
+          BlocProvider<LocalDogImagesBloc>(
+              create: (context) => locator<LocalDogImagesBloc>()),
         ],
         child: const _DogImageScreen(),
       );
@@ -32,10 +34,10 @@ class _DogImageScreen extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<_DogImageScreen> createState() => _ExamplePageState();
+  State<_DogImageScreen> createState() => _DogImageState();
 }
 
-class _ExamplePageState extends State<_DogImageScreen> {
+class _DogImageState extends State<_DogImageScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[

@@ -2,12 +2,12 @@ import 'package:clean_architecture_layer_exam/data/remote/remote_data_source.dar
 import 'package:clean_architecture_layer_exam/data/remote/remote_intercepter.dart';
 import 'package:clean_architecture_layer_exam/di/hive/hive_service.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_loggy_dio/flutter_loggy_dio.dart';
 import 'package:injectable/injectable.dart';
+import 'package:flutter_loggy_dio/flutter_loggy_dio.dart';
 import 'package:loggy/loggy.dart';
 
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: app_module
 /// Created by sujangmac
 ///
@@ -33,6 +33,7 @@ abstract class AppModule {
       ),
       RemoteInterceptor(),
     ]);
+
   @lazySingleton
   RemoteDataSource get remoteDataSource => RemoteDataSource(dio);
 }

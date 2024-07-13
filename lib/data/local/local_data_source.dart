@@ -3,7 +3,7 @@ import 'package:clean_architecture_layer_exam/di/hive/hive_service.dart';
 import 'package:injectable/injectable.dart';
 
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: local_datasource
 /// Created by sujangmac
 ///
@@ -11,9 +11,9 @@ import 'package:injectable/injectable.dart';
 ///
 @singleton
 class LocalDataSource {
-  const LocalDataSource(this._hive);
-
   final HiveService _hive;
+
+  const LocalDataSource(this._hive);
 
   List<DogImageModel> getDogImages() {
     final box = _hive.dogImage;
@@ -23,7 +23,6 @@ class LocalDataSource {
 
   void saveDogImage(DogImageModel dogImageModel) {
     final box = _hive.dogImage;
-
     box.put(dogImageModel.id, dogImageModel);
   }
 

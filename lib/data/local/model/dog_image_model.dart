@@ -3,7 +3,7 @@ import 'package:clean_architecture_layer_exam/domain/entity/dog_image.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: dog_image_model
 /// Created by sujangmac
 ///
@@ -33,7 +33,7 @@ class DogImageModel {
   });
 }
 
-extension DogImageModelExtension on DogImageModel {
+extension DogImageModelX on DogImageModel {
   DogImage toEntity() => DogImage(
         id: id,
         url: url,
@@ -43,11 +43,11 @@ extension DogImageModelExtension on DogImageModel {
       );
 }
 
-extension DogImagesModelExtension on List<DogImageModel> {
+extension DogImagesModel on List<DogImageModel> {
   List<DogImage> toEntities() => map((e) => e.toEntity()).toList();
 }
 
-extension DogImageExtension on DogImage {
+extension DogImageX on DogImage {
   DogImageModel toModel() => DogImageModel(
         id: id,
         url: url,

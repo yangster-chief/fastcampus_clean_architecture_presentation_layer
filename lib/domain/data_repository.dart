@@ -2,7 +2,7 @@ import 'package:clean_architecture_layer_exam/domain/entity/dog_image.dart';
 import 'package:clean_architecture_layer_exam/domain/result.dart';
 
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: data_repository
 /// Created by sujangmac
 ///

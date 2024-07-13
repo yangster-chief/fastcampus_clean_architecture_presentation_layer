@@ -4,7 +4,7 @@ import 'package:clean_architecture_layer_exam/domain/usecase/usecase.dart';
 import 'package:injectable/injectable.dart';
 
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: delete_dog_image_usecase
 /// Created by sujangmac
 ///
@@ -17,10 +17,9 @@ class DeleteDogImageUseCase implements UseCase<void, String> {
   const DeleteDogImageUseCase(this._dataRepository);
 
   @override
-  Future<void> call(String params,
-      {required ResultErrorCallback onError}) async {
+  Future<void> call(String params, {required ResultErrorCallback onError}) async {
     final res = await _dataRepository.deleteDogImage(params);
-    if (res is ResultError) {
+    if(res is ResultError){
       onError(res.error!);
     }
   }

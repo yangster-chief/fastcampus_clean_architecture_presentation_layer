@@ -5,7 +5,7 @@ import 'package:clean_architecture_layer_exam/domain/usecase/usecase.dart';
 import 'package:injectable/injectable.dart';
 
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: get_dog_images_usecase
 /// Created by sujangmac
 ///

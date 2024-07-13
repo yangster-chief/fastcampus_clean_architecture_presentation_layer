@@ -1,5 +1,5 @@
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: remote_dog_images_state
 /// Created by sujangmac
 ///
@@ -10,27 +10,21 @@ part of 'remote_dog_images_bloc.dart';
 sealed class RemoteDogImagesState extends Equatable {
   final List<DogImage> images;
   final String error;
-  const RemoteDogImagesState({
-    this.images = const [],
-    this.error = '',
-  });
+
+  const RemoteDogImagesState({this.images = const [], this.error = ''});
 
   @override
   List<Object> get props => [images, error];
 }
 
-class DogImagesInitial extends RemoteDogImagesState {
-  const DogImagesInitial();
-}
-
-class RemoteDogImagesLoading extends RemoteDogImagesState {
+final class RemoteDogImagesLoading extends RemoteDogImagesState {
   const RemoteDogImagesLoading();
 }
 
-class RemoteDogImagesLoaded extends RemoteDogImagesState {
+final class RemoteDogImagesLoaded extends RemoteDogImagesState {
   const RemoteDogImagesLoaded(List<DogImage> images) : super(images: images);
 }
 
-class RemoteDogImagesError extends RemoteDogImagesState {
+final class RemoteDogImagesError extends RemoteDogImagesState {
   const RemoteDogImagesError(String error) : super(error: error);
 }

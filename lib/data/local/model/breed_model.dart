@@ -2,7 +2,7 @@ import 'package:clean_architecture_layer_exam/domain/entity/dog_image.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: breed_model
 /// Created by sujangmac
 ///
@@ -47,7 +47,7 @@ class BreedModel {
   });
 }
 
-extension BreedModelExtension on BreedModel {
+extension BreedModelX on BreedModel {
   Breed toEntity() => Breed(
         weight: SystemOfMeasurement(
           imperial: weight['imperial'] ?? '',
@@ -68,23 +68,21 @@ extension BreedModelExtension on BreedModel {
       );
 }
 
-extension BreedExtension on Breed {
+extension BreedX on Breed {
   BreedModel toModel() => BreedModel(
-        weight: {
-          'imperial': weight.imperial,
-          'metric': weight.metric,
-        },
-        height: {
-          'imperial': height.imperial,
-          'metric': height.metric,
-        },
-        id: id,
-        name: name,
-        bredFor: bredFor ?? '',
-        breedGroup: breedGroup ?? '',
-        lifeSpan: lifeSpan ?? '',
-        temperament: temperament ?? '',
-        origin: origin ?? '',
-        referenceImageId: referenceImageId ?? '',
-      );
+          weight: {
+            'imperial': weight.imperial,
+            'metric': weight.metric,
+          },
+          height: {
+            'imperial': height.imperial,
+            'metric': height.metric,
+          },
+          id: id,
+          bredFor: bredFor ?? '',
+          breedGroup: breedGroup ?? '',
+          lifeSpan: lifeSpan ?? '',
+          temperament: temperament ?? '',
+          origin: origin ?? '',
+          referenceImageId: referenceImageId);
 }

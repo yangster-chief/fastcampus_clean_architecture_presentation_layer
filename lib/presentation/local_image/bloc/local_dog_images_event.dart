@@ -1,5 +1,5 @@
 ///
-/// clean_architecture_layer_exam
+/// clean_architecture_layer_exam_pre
 /// File Name: local_dog_images_event
 /// Created by sujangmac
 ///
@@ -18,15 +18,8 @@ final class GetLocalDogImagesEvent extends LocalDogImagesEvent {
   const GetLocalDogImagesEvent();
 }
 
-final class SaveDogImageEvent extends LocalDogImagesEvent {
-  final DogImage dogImage;
-
-  const SaveDogImageEvent(this.dogImage);
-}
-
 final class DeleteDogImageEvent extends LocalDogImagesEvent {
   final String id;
-
   const DeleteDogImageEvent(this.id);
 }
 

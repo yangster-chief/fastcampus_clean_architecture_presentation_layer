@@ -1,6 +1,6 @@
 ///
-/// clean_architecture_layer_exam
-/// File Name: local_dog_images_state
+/// clean_architecture_layer_exam_pre
+/// File Name: local_dog_image_state
 /// Created by sujangmac
 ///
 /// Description:
@@ -8,29 +8,29 @@
 part of 'local_dog_images_bloc.dart';
 
 sealed class LocalDogImagesState extends Equatable {
-  final List<DogImage> images;
+  final List<DogImage> image;
   final String error;
   const LocalDogImagesState({
-    this.images = const [],
+    this.image = const [],
     this.error = '',
   });
 
   @override
-  List<Object> get props => [images, error];
+  List<Object> get props => [image, error];
 }
 
-class LocalDogImagesLoading extends LocalDogImagesState {
+final class LocalDogImagesLoading extends LocalDogImagesState {
   const LocalDogImagesLoading();
 }
 
-class LocalDogImagesLoaded extends LocalDogImagesState {
-  const LocalDogImagesLoaded(List<DogImage> images) : super(images: images);
+final class LocalDogImagesLoaded extends LocalDogImagesState {
+  const LocalDogImagesLoaded(List<DogImage> images) : super(image: images);
 }
 
-class LocalDogImagesIsEmpty extends LocalDogImagesState {
+final class LocalDogImagesIsEmpty extends LocalDogImagesState {
   const LocalDogImagesIsEmpty();
 }
 
-class LocalDogImagesError extends LocalDogImagesState {
+final class LocalDogImagesError extends LocalDogImagesState {
   const LocalDogImagesError(String error) : super(error: error);
 }
